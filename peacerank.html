@@ -13,18 +13,8 @@
             background: linear-gradient(120deg, #f0f4f8, #d9e4ec);
         }
 
-        .container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
         .form-container {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
@@ -71,8 +61,13 @@
             background-color: #0d3a58;
         }
 
+        .container {
+            margin-top: 140px; /* Space below the fixed form */
+            padding: 1rem;
+        }
+
         .response {
-            margin-top: 120px; /* Account for fixed form-container height */
+            margin-top: 1rem;
             padding: 1rem;
             background: #f9f9f9;
             border-radius: 5px;

@@ -122,18 +122,17 @@
 
 <body>
     <div class="form-container">
-        <h1>PeaceRank: Understand Your Audience</h1>
         <select id="examples-dropdown" onchange="selectExample()" style="width: 100%; margin-bottom: 1rem;">
             <option value="" disabled selected>Choose an audience example</option>
         </select>
         <textarea id="audience-description" placeholder="Or describe the target audience yourself..."></textarea>
-        <button onclick="callAPI()">Generate PeaceRank Report</button>
+        <button onclick="callAPI()">Generate PeaceRank</button>
     </div>
     <div class="container">
         <div class="loader" id="loader"></div>
         <div class="response" id="response" style="display: none;"></div>
     </div>
-    <footer>Frontend version: 2025-01-06 21:37</footer>
+    <footer>Frontend version: 2025-01-06 21:46</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);

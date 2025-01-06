@@ -14,14 +14,11 @@
         }
 
         .form-container {
-            position: absolute;
-            top: 0;
-            left: 10%; /* Adds padding to the left */
-            width: 80%; /* Centers the form with padding on the sides */
+            width: 80%;
+            margin: 0 auto;
             padding: 1rem;
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 10;
             box-sizing: border-box;
         }
 
@@ -62,15 +59,14 @@
         }
 
         .container {
-            position: absolute;
-            top: 140px; /* Leaves space for the form */
-            left: 0;
-            right: 0;
-            bottom: 20px; /* Adds some padding instead of using bottom: 0 */
-            overflow-y: auto;
+            margin: 1rem auto 0 auto;
+            width: 80%;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 1rem;
-            background: #ffffff; /* White background to cover iframe edges */
+            overflow-y: auto;
             box-sizing: border-box;
+            max-height: calc(100vh - 200px); /* Prevents overflow on smaller screens */
         }
 
         .response {
@@ -80,8 +76,6 @@
             border-radius: 5px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
-            height: calc(100% - 2rem); /* Makes the response box occupy all available vertical space */
-            box-sizing: border-box;
         }
 
         .loader {
@@ -92,7 +86,8 @@
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            display: none; /* Default hidden until loading */
+            display: none;
+            z-index: 10;
         }
 
         @keyframes spin {
@@ -102,6 +97,13 @@
             100% {
                 transform: rotate(360deg);
             }
+        }
+
+        footer {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
         }
     </style>
 </head>
@@ -115,6 +117,7 @@
         <div class="loader" id="loader"></div>
         <div class="response" id="response" style="display: none;"></div>
     </div>
+    <footer>Version: 2025-01-06 17:32</footer>
 
     <script>
         async function callAPI() {

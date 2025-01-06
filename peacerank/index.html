@@ -34,7 +34,7 @@
         textarea {
             width: 100%;
             height: 120px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             padding: 0.5rem;
             margin-bottom: 1rem;
             border: 1px solid #ccc;
@@ -68,7 +68,7 @@
             padding: 1rem;
             overflow-y: auto;
             box-sizing: border-box;
-            max-height: calc(100vh - 500px);
+            max-height: calc(100vh - 350px);
             /* Prevents overflow on smaller screens */
         }
 
@@ -128,11 +128,11 @@
         <textarea id="audience-description" placeholder="Or describe the target audience yourself..."></textarea>
         <button onclick="callAPI()">Generate PeaceRank</button>
     </div>
-    <div class="container">
+    <div class="container" id="container" style="display: none;">
         <div class="loader" id="loader"></div>
         <div class="response" id="response" style="display: none;"></div>
     </div>
-    <footer>Frontend version: 2025-01-06 21:46</footer>
+    <footer>Frontend version: 2025-01-06 22:25</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);
@@ -171,13 +171,17 @@
         async function callAPI() {
             const descriptionTextarea = document.getElementById('audience-description');
             const description = descriptionTextarea.value.trim();
+            const loader = document.getElementById('loader');
+            const container = document.getElementById('container');
+            const responseContainer = document.getElementById('response');
+
+            container.style.display = 'block';
+
             if (!description) {
-                alert('Please provide an audience description.');
+                responseContainer.style.display = 'block';
+                responseContainer.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
                 return;
             }
-
-            const loader = document.getElementById('loader');
-            const responseContainer = document.getElementById('response');
 
             loader.style.display = 'block';
             responseContainer.style.display = 'none';
@@ -191,13 +195,12 @@
 
                 const result = await response.json();
                 loader.style.display = 'none';
+                responseContainer.style.display = 'block';
 
                 if (response.ok) {
-                    responseContainer.style.display = 'block';
                     responseContainer.innerHTML = result.result; // Render the HTML response
                     descriptionTextarea.value = description; // Keep the original query in the textbox
                 } else {
-                    responseContainer.style.display = 'block';
                     responseContainer.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
                 }
             } catch (error) {

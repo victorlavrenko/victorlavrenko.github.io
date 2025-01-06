@@ -68,7 +68,7 @@
             overflow-y: auto;
             box-sizing: border-box;
             max-height: calc(100vh - 200px); /* Prevents overflow on smaller screens */
-            display: none;
+            visibility: hidden;
         }
 
         .response {
@@ -133,7 +133,7 @@
             const responseContainer = document.getElementById('response');
             const outsideContainer = document.getElementById('container');
 
-            outsideContainer.style.display = 'block';
+            outsideContainer.style.visibility = 'visible';
             loader.style.display = 'block';
             responseContainer.style.display = 'none';
 

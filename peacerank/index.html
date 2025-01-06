@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +68,8 @@
             padding: 1rem;
             overflow-y: auto;
             box-sizing: border-box;
-            max-height: calc(100lvih - 200px) ; /* Prevents overflow on smaller screens */
+            max-height: calc(100lvih - 200px);
+            /* Prevents overflow on smaller screens */
         }
 
         .response {
@@ -94,6 +96,7 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -105,21 +108,70 @@
             font-size: 0.8rem;
             color: #555;
         }
+
+        #examples-dropdown {
+            font-family: 'Source Sans', sans-serif;
+            font-size: 1rem;
+            padding: 0.5rem;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h1>PeaceRank: Understand Your Audience</h1>
         <textarea id="audience-description" placeholder="Describe your audience here..."></textarea>
         <button onclick="callAPI()">Generate PeaceRank Report</button>
+        <button onclick="loadExamples()">Examples</button>
+        <select id="examples-dropdown" onchange="selectExample()" style="display: none; width: 100%; margin-top: 1rem;">
+            <option value="" disabled selected>Select an example</option>
+        </select>
     </div>
     <div class="container">
         <div class="loader" id="loader"></div>
         <div class="response" id="response" style="display: none;"></div>
     </div>
-    <footer>Frontend version: 2025-01-06 19:33</footer>
+    <footer>Frontend version: 2025-01-06 20:01</footer>
 
     <script>
+        async function loadExamples() {
+            const dropdown = document.getElementById('examples-dropdown');
+            dropdown.style.display = 'block';
+
+            // Fetch examples JSON from hosting
+            const examplesURL = 'https://victorlavrenko.github.io/peacerank/examples.json';
+            try {
+                const response = await fetch(examplesURL);
+                const examples = await response.json();
+
+                // Populate dropdown with examples
+                dropdown.innerHTML = '<option value="" disabled selected>Select an example</option>';
+                examples.forEach(example => {
+                    const option = document.createElement('option');
+                    option.value = example.text;
+                    option.textContent = example.label;
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                alert('Error loading examples: ' + error.message);
+            }
+        }
+
+        function selectExample() {
+            const dropdown = document.getElementById('examples-dropdown');
+            const textarea = document.getElementById('audience-description');
+            const selectedText = dropdown.value;
+
+            // Copy selected example text to textarea
+            textarea.value = selectedText;
+
+            // Hide dropdown after selection
+            dropdown.style.display = 'none';
+        }
+
         async function callAPI() {
             const descriptionTextarea = document.getElementById('audience-description');
             const description = descriptionTextarea.value.trim();
@@ -160,4 +212,5 @@
         }
     </script>
 </body>
+
 </html>

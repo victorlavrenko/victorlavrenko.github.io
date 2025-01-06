@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeaceRank API Integration</title>
+</head>
+<body>
+    <h1>PeaceRank API</h1>
+    <form id="apiForm">
+        <label for="audienceDescription">Audience Description:</label><br>
+        <input type="text" id="audienceDescription" name="audienceDescription" placeholder="e.g., Ivy League graduate students"><br><br>
+        <button type="submit">Get PeaceRank</button>
+    </form>
+
+    <h2>API Response:</h2>
+    <pre id="apiResponse"></pre>
+
+    <script>
+        document.getElementById('apiForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const audienceDescription = document.getElementById('audienceDescription').value;
+            const apiUrl = "https://e3k4svcayg.execute-api.eu-north-1.amazonaws.com/prod/peacerank-endpoint";
+
+            // Prepare request payload
+            const payload = {
+                audience_description: audienceDescription
+            };
+
+            try {
+                // Make the API call
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API call failed: ${response.statusText}`);
+                }
+
+                // Parse the JSON response
+                const result = await response.json();
+
+                // Display the response
+                document.getElementById('apiResponse').textContent = JSON.stringify(result, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('apiResponse').textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

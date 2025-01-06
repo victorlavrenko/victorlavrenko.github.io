@@ -16,14 +16,13 @@
         .form-container {
             position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             width: 100%;
-            max-width: 600px;
             padding: 1rem;
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 10;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -42,6 +41,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             resize: none;
+            box-sizing: border-box; /* Ensures padding is included in element's total width */
         }
 
         button {
@@ -62,8 +62,15 @@
         }
 
         .container {
-            margin-top: 140px; /* Space below the fixed form */
+            position: absolute;
+            top: 140px; /* Space below the fixed form */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            background: #ffffff; /* White background for the entire results area */
             padding: 1rem;
+            box-sizing: border-box;
         }
 
         .response {
@@ -72,6 +79,8 @@
             background: #f9f9f9;
             border-radius: 5px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            max-height: 100%; /* Allows scrolling if content exceeds window height */
         }
 
         .loader {
@@ -98,7 +107,7 @@
 <body>
     <div class="form-container">
         <h1>PeaceRank: Understand Your Audience</h1>
-        <textarea id="audience-description" placeholder="Describe your audience here..."></textarea>
+        <textarea id="audience-description" placeholder="Describe your audience here..." style="padding-right: 10px;"></textarea>
         <button onclick="callAPI()">Generate PeaceRank Report</button>
     </div>
     <div class="container">

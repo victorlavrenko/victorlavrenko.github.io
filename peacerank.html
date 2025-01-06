@@ -107,7 +107,8 @@
 
     <script>
         async function callAPI() {
-            const description = document.getElementById('audience-description').value.trim();
+            const descriptionTextarea = document.getElementById('audience-description');
+            const description = descriptionTextarea.value.trim();
             if (!description) {
                 alert('Please provide an audience description.');
                 return;
@@ -134,7 +135,8 @@
                 if (response.ok) {
                     responseTitle.style.display = 'block';
                     responseContainer.style.display = 'block';
-                    responseContainer.innerHTML = result.result; // Assuming the API response includes HTML
+                    responseContainer.innerHTML = result.result; // Render the HTML response
+                    descriptionTextarea.value = description; // Keep the original query in the textbox
                 } else {
                     responseContainer.style.display = 'block';
                     responseContainer.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;

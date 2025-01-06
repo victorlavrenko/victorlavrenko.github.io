@@ -16,8 +16,8 @@
         .form-container {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
+            left: 10%; /* Adds padding to the left */
+            width: 80%; /* Centers the form with padding on the sides */
             padding: 1rem;
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             resize: none;
-            box-sizing: border-box; /* Ensures padding is included in element's total width */
+            box-sizing: border-box;
         }
 
         button {
@@ -63,13 +63,13 @@
 
         .container {
             position: absolute;
-            top: 140px; /* Space below the fixed form */
+            top: 140px; /* Leaves space for the form */
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: 20px; /* Adds some padding instead of using bottom: 0 */
             overflow-y: auto;
-            background: #ffffff; /* White background for the entire results area */
             padding: 1rem;
+            background: #ffffff; /* White background to cover iframe edges */
             box-sizing: border-box;
         }
 
@@ -79,19 +79,20 @@
             background: #f9f9f9;
             border-radius: 5px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            overflow: auto;
-            max-height: 100%; /* Allows scrolling if content exceeds window height */
+            overflow-y: auto;
+            height: calc(100% - 2rem); /* Makes the response box occupy all available vertical space */
+            box-sizing: border-box;
         }
 
         .loader {
-            margin: 1rem auto;
+            margin: 2rem auto;
             border: 4px solid #f3f3f3;
             border-top: 4px solid #164e77;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            display: none;
+            display: none; /* Default hidden until loading */
         }
 
         @keyframes spin {
@@ -107,7 +108,7 @@
 <body>
     <div class="form-container">
         <h1>PeaceRank: Understand Your Audience</h1>
-        <textarea id="audience-description" placeholder="Describe your audience here..." style="padding-right: 10px;"></textarea>
+        <textarea id="audience-description" placeholder="Describe your audience here..."></textarea>
         <button onclick="callAPI()">Generate PeaceRank Report</button>
     </div>
     <div class="container">

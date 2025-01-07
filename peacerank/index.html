@@ -65,7 +65,7 @@
             width: 80%;
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            padding: 0.5rem;
             overflow-y: auto;
             box-sizing: border-box;
             max-height: calc(100vh - 350px);
@@ -73,11 +73,21 @@
         }
 
         .response {
-            padding: 1rem;
+            padding: 0.5rem;
             background: #f9f9f9;
             border-radius: 5px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
+        }
+
+        .response ul {
+            padding-left: 0.75rem; 
+            margin-left: 0;
+        }
+
+        .response li {
+            padding-left: 0.25rem;
+            margin-left: 0;
         }
 
         .loader {
@@ -132,7 +142,7 @@
         <div class="loader" id="loader"></div>
         <div class="response" id="response" style="display: none;"></div>
     </div>
-    <footer>Frontend version: 2025-01-06 22:25</footer>
+    <footer>Frontend version: 2025-01-06 23:11</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);

@@ -72,21 +72,13 @@
             /* Prevents overflow on smaller screens */
         }
 
-        .response {
-            padding: 0.5rem;
-            background: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-
-        .response ul {
-            padding-left: 0.75rem; 
+        .container ul {
+            padding-left: 1rem; 
             margin-left: 0;
         }
 
-        .response li {
-            padding-left: 0.25rem;
+        .container li {
+            padding-left: 0;
             margin-left: 0;
         }
 
@@ -140,9 +132,8 @@
     </div>
     <div class="container" id="container" style="display: none;">
         <div class="loader" id="loader"></div>
-        <div class="response" id="response" style="display: none;"></div>
     </div>
-    <footer>Frontend version: 2025-01-06 23:11</footer>
+    <footer>Frontend version: 2025-01-07 10:41</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);
@@ -183,18 +174,15 @@
             const description = descriptionTextarea.value.trim();
             const loader = document.getElementById('loader');
             const container = document.getElementById('container');
-            const responseContainer = document.getElementById('response');
 
             container.style.display = 'block';
 
             if (!description) {
-                responseContainer.style.display = 'block';
-                responseContainer.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
+                container.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
                 return;
             }
 
             loader.style.display = 'block';
-            responseContainer.style.display = 'none';
 
             try {
                 const response = await fetch('https://e3k4svcayg.execute-api.eu-north-1.amazonaws.com/prod/peacerank-endpoint', {
@@ -205,18 +193,18 @@
 
                 const result = await response.json();
                 loader.style.display = 'none';
-                responseContainer.style.display = 'block';
+                container.style.display = 'block';
 
                 if (response.ok) {
-                    responseContainer.innerHTML = result.result; // Render the HTML response
+                    container.innerHTML = result.result; // Render the HTML response
                     descriptionTextarea.value = description; // Keep the original query in the textbox
                 } else {
-                    responseContainer.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
+                    container.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
                 }
             } catch (error) {
                 loader.style.display = 'none';
-                responseContainer.style.display = 'block';
-                responseContainer.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                container.style.display = 'block';
+                container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
             }
         }
     </script>

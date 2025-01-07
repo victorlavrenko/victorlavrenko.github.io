@@ -15,7 +15,7 @@
         }
 
         .form-container {
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
             margin-top: 1rem;
             padding: 1rem;
@@ -62,7 +62,7 @@
 
         .container {
             margin: 1rem auto 0 auto;
-            width: 80%;
+            width: 90%;
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 0.5rem;
@@ -132,8 +132,9 @@
     </div>
     <div class="container" id="container" style="display: none;">
         <div class="loader" id="loader"></div>
+        <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-07 10:41</footer>
+    <footer>Frontend version: 2025-01-07 11:05</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);
@@ -174,14 +175,17 @@
             const description = descriptionTextarea.value.trim();
             const loader = document.getElementById('loader');
             const container = document.getElementById('container');
+            const peacerank = document.getElementById('peacerank');
 
             container.style.display = 'block';
 
             if (!description) {
-                container.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
+                peacerank.style.display = 'block';
+                peacerank.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
                 return;
             }
 
+            peacerank.style.display = 'none';
             loader.style.display = 'block';
 
             try {
@@ -192,19 +196,20 @@
                 });
 
                 const result = await response.json();
+
                 loader.style.display = 'none';
-                container.style.display = 'block';
+                peacerank.style.display = 'block';
 
                 if (response.ok) {
-                    container.innerHTML = result.result; // Render the HTML response
+                    peacerank.innerHTML = result.result; // Render the HTML response
                     descriptionTextarea.value = description; // Keep the original query in the textbox
                 } else {
-                    container.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
+                    peacerank.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
                 }
             } catch (error) {
                 loader.style.display = 'none';
-                container.style.display = 'block';
-                container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                peacerank.style.display = 'block';
+                peacerank.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
             }
         }
     </script>

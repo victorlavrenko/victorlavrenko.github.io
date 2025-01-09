@@ -124,7 +124,7 @@
 
 <body>
     <div class="form-container">
-        <select id="examples-dropdown" onclick="selectExample()" style="width: 100%; margin-bottom: 1rem;">
+        <select id="examples-dropdown" onclick="selectExample()" onchange="selectExample()" style="width: 100%; margin-bottom: 1rem;">
             <option value="" disabled selected>Choose an audience example</option>
         </select>
         <textarea id="audience-description" placeholder="Or describe the target audience yourself..."></textarea>
@@ -134,7 +134,7 @@
         <div class="loader" id="loader"></div>
         <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-07 11:19</footer>
+    <footer>Frontend version: 2025-01-09 12:13</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);

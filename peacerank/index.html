@@ -134,7 +134,7 @@
         <div class="loader" id="loader"></div>
         <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-26 13:37</footer>
+    <footer>Frontend version: 2025-01-26 14:18</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);
@@ -189,7 +189,7 @@
             loader.style.display = 'block';
 
             try {
-                const response = await fetch('https://z0cl955y2g.execute-api.eu-north-1.amazonaws.com/Prod/inference/', {
+                const response = await fetch('https://8x5kn6g1qb.execute-api.eu-north-1.amazonaws.com/Prod/inference/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ audience_description: description }),

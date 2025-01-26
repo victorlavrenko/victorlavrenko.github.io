@@ -134,7 +134,7 @@
         <div class="loader" id="loader"></div>
         <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-26 18:13</footer>
+    <footer>Frontend version: 2025-01-26 18:30</footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", loadExamples);
@@ -197,18 +197,18 @@
 
                 const result = await response.json();
 
-                console.log("response: ", response);
-                console.log("result: ", result);
-
                 loader.style.display = 'none';
                 peacerank.style.display = 'block';
 
+                output = "";
                 if (response.ok) {
-                    peacerank.innerHTML = result.result; // Render the HTML response
+                    output = result.result;
                     descriptionTextarea.value = description; // Keep the original query in the textbox
                 } else {
-                    peacerank.innerHTML = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
+                    output = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
                 }
+                peacerank.innerHTML = output + 
+                    `<br><p style="text-align: center"><small style="font-size: 12px; margin-left: 10px; color: gray;">API Version: ${result.version}</small></p>`;
             } catch (error) {
                 loader.style.display = 'none';
                 peacerank.style.display = 'block';

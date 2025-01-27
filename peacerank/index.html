@@ -64,14 +64,26 @@
         The footer includes metadata about the frontend version. This helps developers or testers ensure they are 
         working with the correct version of the application.
     -->
-    <footer>Frontend version: 2025-01-27 10:11</footer>
+    <footer>Frontend version: 2025-01-27 10:21</footer>
 
     <!-- 
         External JavaScript 
         The `scripts.js` file contains all the logic for loading examples, handling user interactions, and 
         communicating with the backend API.
     -->
-    <script src="scripts.js"></script>
+    <script>
+        // Dynamically load the JavaScript file with a timestamp query string to prevent caching.
+        // This ensures the browser always fetches the latest version of the script.
+        const script = document.createElement('script');
+        script.src = `scripts.js?t=${new Date().getTime()}`;
+        document.head.appendChild(script);
+
+        /* Why dynamic loading?
+         * 1. Browser caching can cause older versions of the script to load, leading to outdated functionality.
+         * 2. Adding a timestamp as a query parameter forces the browser to fetch a fresh copy of the script.
+         * 3. This method is particularly useful during development or when frequent updates to the script are expected.
+         */
+    </script>
 </body>
 
 </html>

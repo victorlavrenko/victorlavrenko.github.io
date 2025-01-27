@@ -134,88 +134,101 @@
         <div class="loader" id="loader"></div>
         <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-26 18:30</footer>
+    <footer>Frontend version: 2025-01-27 07:52</footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", loadExamples);
-
+        document.addEventListener("DOMContentLoaded", () => {
+            loadExamples();
+            setupEventListeners();
+        });
+    
         async function loadExamples() {
             const dropdown = document.getElementById('examples-dropdown');
-
-            // Fetch examples JSON from hosting
             const examplesURL = 'https://victorlavrenko.github.io/peacerank/examples.json';
+    
             try {
                 const response = await fetch(examplesURL);
+                if (!response.ok) throw new Error(`Failed to fetch examples: ${response.statusText}`);
+                
                 const examples = await response.json();
-
-                // Populate dropdown with examples
-                dropdown.innerHTML = '<option value="" disabled selected>Choose an audience example</option>';
-                examples.forEach(example => {
-                    const option = document.createElement('option');
-                    option.value = example.text;
-                    option.textContent = example.label;
-                    dropdown.appendChild(option);
-                });
+                populateDropdown(dropdown, examples);
             } catch (error) {
+                console.error('Error loading examples:', error);
                 alert('Error loading examples: ' + error.message);
             }
         }
-
-        function selectExample() {
+    
+        function populateDropdown(dropdown, examples) {
+            dropdown.innerHTML = '<option value="" disabled selected>Choose an audience example</option>';
+            examples.forEach(({ text, label }) => {
+                const option = document.createElement('option');
+                option.value = text;
+                option.textContent = label;
+                dropdown.appendChild(option);
+            });
+        }
+    
+        function setupEventListeners() {
             const dropdown = document.getElementById('examples-dropdown');
             const textarea = document.getElementById('audience-description');
-            const selectedText = dropdown.value;
-
-            // Copy selected example text to textarea
-            textarea.value = selectedText;
+            dropdown.addEventListener('change', () => (textarea.value = dropdown.value));
         }
-
+    
         async function callAPI() {
             const descriptionTextarea = document.getElementById('audience-description');
             const description = descriptionTextarea.value.trim();
             const loader = document.getElementById('loader');
             const container = document.getElementById('container');
             const peacerank = document.getElementById('peacerank');
-
-            container.style.display = 'block';
-
+    
             if (!description) {
-                peacerank.style.display = 'block';
-                peacerank.innerHTML = `<p style="color: red; text-align: center; margin: 0;">Please provide an audience description.</p>`;
+                displayMessage(peacerank, 'Please provide an audience description.', 'error');
                 return;
             }
-
-            peacerank.style.display = 'none';
-            loader.style.display = 'block';
-
+    
             try {
-                const response = await fetch('https://8x5kn6g1qb.execute-api.eu-north-1.amazonaws.com/Prod/inference/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ audience_description: description }),
-                });
-
-                const result = await response.json();
-
-                loader.style.display = 'none';
-                peacerank.style.display = 'block';
-
-                output = "";
-                if (response.ok) {
-                    output = result.result;
-                    descriptionTextarea.value = description; // Keep the original query in the textbox
-                } else {
-                    output = `<p style="color: red;">Error: ${result.message || 'Unknown error'}</p>`;
-                }
-                peacerank.innerHTML = output + 
-                    `<br><p style="text-align: center"><small style="font-size: 12px; margin-left: 10px; color: gray;">API Version: ${result.version}</small></p>`;
+                container.style.display = 'block';
+                loader.style.display = 'block';
+                peacerank.style.display = 'none';
+    
+                const result = await fetchInference(description);
+    
+                displayResult(peacerank, result, description);
             } catch (error) {
+                displayMessage(peacerank, `Error: ${error.message}`, 'error');
+            } finally {
                 loader.style.display = 'none';
                 peacerank.style.display = 'block';
-                peacerank.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
             }
+        }
+    
+        async function fetchInference(description) {
+            const response = await fetch('https://8x5kn6g1qb.execute-api.eu-north-1.amazonaws.com/Prod/inference/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ audience_description: description }),
+            });
+    
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.message || 'Unknown error');
+            }
+    
+            return result;
+        }
+    
+        function displayResult(peacerank, result, description) {
+            let output = result.result;
+            if (result.version) {
+                output += `<br><p style="text-align: center"><small style="font-size: 12px; margin-left: 10px; color: gray;">API Version: ${result.version}</small></p>`;
+            }
+            peacerank.innerHTML = output;
+        }
+    
+        function displayMessage(element, message, type = 'info') {
+            const color = type === 'error' ? 'red' : 'black';
+            element.innerHTML = `<p style="color: ${color}; text-align: center; margin: 0;">${message}</p>`;
         }
     </script>
 </body>
-
 </html>

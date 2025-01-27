@@ -10,19 +10,67 @@
 </head>
 
 <body>
+    <!-- 
+        PeaceRank Demo Interface 
+        PeaceRank is a hypothetical metric designed to evaluate the compatibility of certain audience demographics 
+        or target groups with specific content, messaging, or campaigns. This demo allows users to input an audience 
+        description or select from predefined examples, and then queries the backend API to calculate the PeaceRank.
+    -->
+
     <div class="form-container">
-        <select id="examples-dropdown" onclick="selectExample()" onchange="selectExample()" style="width: 100%; margin-bottom: 1rem;">
+        <!-- 
+            Dropdown to Choose Examples 
+            Users can select an audience description from predefined examples. This provides inspiration or a starting 
+            point for generating a PeaceRank without requiring users to write their own descriptions. The examples 
+            are fetched dynamically from an external JSON source.
+        -->
+        <select id="examples-dropdown" style="width: 100%; margin-bottom: 1rem;">
             <option value="" disabled selected>Choose an audience example</option>
         </select>
+        
+        <!-- 
+            Textarea for Custom Audience Description 
+            If users prefer, they can manually input a description of the audience they want to evaluate. This 
+            flexibility ensures that PeaceRank can work with user-defined input as well as predefined examples.
+        -->
         <textarea id="audience-description" placeholder="Or describe the target audience yourself..."></textarea>
+
+        <!-- 
+            Button to Trigger PeaceRank Calculation 
+            When clicked, this button triggers the backend API call. It takes the audience description from the 
+            textarea (or a selected example) and sends it to the API to compute the PeaceRank.
+        -->
         <button onclick="callAPI()">Generate PeaceRank</button>
     </div>
+
     <div class="container" id="container" style="display: none;">
+        <!-- 
+            Loading Spinner 
+            This spinner is displayed while waiting for the API response. It provides visual feedback to users, 
+            ensuring they understand that their request is being processed.
+        -->
         <div class="loader" id="loader"></div>
+
+        <!-- 
+            PeaceRank Output Container 
+            Once the API response is received, the calculated PeaceRank (and any associated information like API 
+            version) is displayed here. If there's an error, the error message is also displayed here.
+        -->
         <div class="peacerank" id="peacerank"></div>
     </div>
-    <footer>Frontend version: 2025-01-27 09:11</footer>
 
+    <!-- 
+        Footer Information 
+        The footer includes metadata about the frontend version. This helps developers or testers ensure they are 
+        working with the correct version of the application.
+    -->
+    <footer>Frontend version: 2025-01-27 09:55</footer>
+
+    <!-- 
+        External JavaScript 
+        The `scripts.js` file contains all the logic for loading examples, handling user interactions, and 
+        communicating with the backend API.
+    -->
     <script src="scripts.js"></script>
 </body>
 

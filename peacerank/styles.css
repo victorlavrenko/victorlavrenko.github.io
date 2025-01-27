@@ -1,102 +1,147 @@
+/* 
+Global Styles 
+These styles define the overall look and feel of the page. 
+PeaceRank uses a clean, professional layout with a soft gradient background 
+to create a calming and user-friendly experience.
+*/
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif; /* Modern, legible font for accessibility */
     margin: 0;
     padding: 0;
-    background: linear-gradient(120deg, #f0f4f8, #d9e4ec);
+    background: linear-gradient(120deg, #f0f4f8, #d9e4ec); /* Subtle gradient for a polished aesthetic */
 }
 
+/* 
+Form Container 
+This container holds the dropdown, textarea, and button for user input. 
+It uses a responsive width (90% of the viewport) to ensure it looks good on all devices.
+*/
 .form-container {
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+    width: 90%; /* Responsive width for better usability on smaller screens */
+    margin: 0 auto; /* Center the container horizontally */
+    margin-top: 1rem; /* Provide vertical spacing from the top */
+    padding: 1rem; /* Add internal spacing to ensure content doesn’t touch edges */
+    background: #ffffff; /* Clean, white background to contrast with the gradient body */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a slightly elevated look */
+    box-sizing: border-box; /* Ensures padding is included in width calculations */
 }
 
+/* 
+Header Style 
+This style is meant for any titles on the page, ensuring prominence and readability.
+*/
 h1 {
-    font-size: 1.5rem;
-    color: #164e77;
-    margin-bottom: 1rem;
-    text-align: center;
+    font-size: 1.5rem; /* Slightly larger text for emphasis */
+    color: #164e77; /* Dark blue tone for a professional look */
+    margin-bottom: 1rem; /* Space below the header for separation from other content */
+    text-align: center; /* Centered alignment to draw attention */
 }
 
+/* 
+Textarea for Custom Input 
+Allows users to enter their own audience description. The styling ensures it is usable and visually appealing.
+*/
 textarea {
-    width: 100%;
-    height: 120px;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-    box-sizing: border-box;
+    width: 100%; /* Full width of the parent container */
+    height: 120px; /* Adequate height for writing multiple lines */
+    font-size: 0.9rem; /* Comfortable font size for readability */
+    padding: 0.5rem; /* Internal spacing for usability */
+    margin-bottom: 1rem; /* Space below the textarea */
+    border: 1px solid #ccc; /* Neutral border to separate it from the background */
+    border-radius: 5px; /* Soft corners for a modern look */
+    resize: none; /* Disable resizing to maintain layout consistency */
+    box-sizing: border-box; /* Include padding in the width calculation */
 }
 
+/* 
+Submit Button 
+Encourages interaction with the application. Hover effects provide feedback to users.
+*/
 button {
-    background-color: #164e77;
-    color: white;
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    display: block;
-    margin: 0 auto;
+    background-color: #164e77; /* Primary color for the brand */
+    color: white; /* High contrast for accessibility */
+    font-size: 1rem; /* Readable text size */
+    padding: 0.75rem 1.5rem; /* Balanced padding for a clickable button */
+    border: none; /* Removes default border for a cleaner look */
+    border-radius: 5px; /* Rounded corners for a friendly design */
+    cursor: pointer; /* Indicates interactivity */
+    font-weight: 600; /* Slightly bolder text for emphasis */
+    display: block; /* Centers the button horizontally */
+    margin: 0 auto; /* Center alignment */
 }
 
 button:hover {
-    background-color: #0d3a58;
+    background-color: #0d3a58; /* Darker shade for hover effect, indicating interaction */
 }
 
+/* 
+Output Container 
+Holds the loader and API results. It is responsive and prevents overflow issues.
+*/
 .container {
-    margin: 1rem auto 0 auto;
-    width: 90%;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-    overflow-y: auto;
-    box-sizing: border-box;
-    max-height: calc(100vh - 350px);
-    /* Prevents overflow on smaller screens */
+    margin: 1rem auto 0 auto; /* Centers the container and adds space from the top */
+    width: 90%; /* Responsive width for smaller screens */
+    background: #ffffff; /* Matches the input container’s background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Creates visual depth */
+    padding: 0.5rem; /* Internal spacing for better layout */
+    overflow-y: auto; /* Enables scrolling if content exceeds max height */
+    box-sizing: border-box; /* Prevents padding from altering the width */
+    max-height: calc(100vh - 350px); /* 
+        Dynamically calculates maximum height based on viewport size.
+        Ensures content does not overflow on small screens. The subtraction accounts for fixed elements like the form and footer.
+    */
 }
 
+/* 
+Loader (Spinner) 
+Visual indicator that the system is processing a request. Built using CSS animations.
+*/
 .loader {
-    margin: 2rem auto;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #164e77;
-    border-radius: 50%;
-    width: 40px;
+    margin: 2rem auto; /* Centered with vertical spacing */
+    border: 4px solid #f3f3f3; /* Light gray outer border */
+    border-top: 4px solid #164e77; /* Brand color for the spinner’s active portion */
+    border-radius: 50%; /* Makes the loader a perfect circle */
+    width: 40px; /* Fixed size for consistency */
     height: 40px;
-    animation: spin 1s linear infinite;
-    display: none;
-    z-index: 10;
+    animation: spin 1s linear infinite; /* Smooth spinning effect */
+    display: none; /* Initially hidden, displayed only during loading */
+    z-index: 10; /* Ensures the loader is on top of other elements */
 }
 
+/* 
+Keyframes for the Spinner Animation 
+Defines the spinning effect for the loader. The transform property rotates the element 360 degrees.
+*/
 @keyframes spin {
     0% {
-        transform: rotate(0deg);
+        transform: rotate(0deg); /* Starting point of the spin */
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: rotate(360deg); /* Completes a full spin */
     }
 }
 
+/* 
+Footer 
+Displays metadata, such as the version of the frontend. Subtle styling to keep it unobtrusive.
+*/
 footer {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #555;
+    margin-top: 1rem; /* Space above the footer */
+    text-align: center; /* Centers the text */
+    font-size: 0.8rem; /* Small text to indicate secondary importance */
+    color: #555; /* Neutral gray tone for subtlety */
 }
 
+/* 
+Examples Dropdown 
+Dropdown for selecting predefined audience examples. Styled to blend with the overall design.
+*/
 #examples-dropdown {
-    font-family: 'Source Sans', sans-serif;
-    font-size: 1rem;
-    padding: 0.5rem;
-    background: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
+    font-family: 'Source Sans', sans-serif; /* Matches the overall font style */
+    font-size: 1rem; /* Standard font size */
+    padding: 0.5rem; /* Adds internal spacing for usability */
+    background: #ffffff; /* Matches the container background */
+    border: 1px solid #cccccc; /* Neutral border */
+    border-radius: 5px; /* Soft corners to match other elements */
 }

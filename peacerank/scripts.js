@@ -169,5 +169,6 @@ function displayResult(peacerank, result) {
  */
 function displayMessage(element, message, type = 'info') {
     const color = type === 'error' ? 'red' : 'black';
-    element.innerHTML = `<p style="color: ${color}; text-align: center; margin: 0;">${message}</p>`;
+    const textAlign = type === 'error' ? 'center' : 'left'; // Center only for errors
+    element.innerHTML = `<p style="color: ${color}; text-align: ${textAlign}; margin: 0;">${message}</p>`;
 }

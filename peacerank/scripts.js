@@ -18,14 +18,12 @@
 
 /**
  * Main Initialization
- * - Waits for the DOM to load, then initializes examples and event listeners.
- * - Ensures the page is fully ready before executing JavaScript, avoiding errors.
+ * - Initialize the page by loading examples and setting up user input event listeners.
  */
-document.addEventListener("DOMContentLoaded", () => {
-    // Initialize the page by loading examples and setting up user input event listeners.
+function init() {
     loadExamples();
     setupEventListeners();
-});
+}
 
 /**
  * Fetches example audience descriptions from a hosted JSON file and populates the dropdown.

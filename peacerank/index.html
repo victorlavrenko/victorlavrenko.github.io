@@ -64,7 +64,7 @@
         The footer includes metadata about the frontend version. This helps developers or testers ensure they are 
         working with the correct version of the application.
     -->
-    <footer>Frontend version: 2025-01-27 10:21</footer>
+    <footer>Frontend version: 2025-01-27 10:39</footer>
 
     <!-- 
         External JavaScript 
@@ -76,6 +76,14 @@
         // This ensures the browser always fetches the latest version of the script.
         const script = document.createElement('script');
         script.src = `scripts.js?t=${new Date().getTime()}`;
+        script.onload = () => {
+            // Call the init function inside the loaded script
+            if (typeof init === 'function') {
+                init();
+            } else {
+                console.error("Error: 'init' function is not defined in scripts.js");
+            }
+        };
         document.head.appendChild(script);
 
         /* Why dynamic loading?

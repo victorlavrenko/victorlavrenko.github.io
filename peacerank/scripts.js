@@ -127,7 +127,7 @@ async function callAPI() {
  * @throws {Error} - If the API returns an error or the request fails.
  */
 async function fetchInference(description) {
-    const response = await fetch('https://8x5kn6g1qb.execute-api.eu-north-1.amazonaws.com/Prod/inference/', {
+    const response = await fetch('https://1j6hrf5fs6.execute-api.il-central-1.amazonaws.com/Prod/inference/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ audience_description: description }),

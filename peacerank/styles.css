@@ -43,7 +43,10 @@ Allows users to enter their own audience description. The styling ensures it is 
 */
 textarea {
     width: 100%; /* Full width of the parent container */
-    height: 120px; /* Adequate height for writing multiple lines */
+    height: auto; /* The textarea should auto-expand as users type instead of having a fixed height. */
+    min-height: 120px; /* Adequate height for writing multiple lines */
+    max-height: 300px;
+    overflow-y: auto;
     font-size: 0.9rem; /* Comfortable font size for readability */
     padding: 0.5rem; /* Internal spacing for usability */
     margin-bottom: 1rem; /* Space below the textarea */
@@ -68,10 +71,12 @@ button {
     font-weight: 600; /* Slightly bolder text for emphasis */
     display: block; /* Centers the button horizontally */
     margin: 0 auto; /* Center alignment */
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 button:hover {
     background-color: #0d3a58; /* Darker shade for hover effect, indicating interaction */
+    transform: scale(1.05);
 }
 
 /* 

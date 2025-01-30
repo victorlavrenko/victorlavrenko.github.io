@@ -127,19 +127,27 @@ async function callAPI() {
  * @throws {Error} - If the API returns an error or the request fails.
  */
 async function fetchInference(description) {
-    const response = await fetch('https://1j6hrf5fs6.execute-api.il-central-1.amazonaws.com/Prod/inference/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ audience_description: description }),
-    });
+    try {
+        const response = await fetch('https://1j6hrf5fs6.execute-api.il-central-1.amazonaws.com/Prod/inference/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ audience_description: description }),
+        });
 
-    const result = await response.json();
-    if (!response.ok) {
-        throw new Error(result.message || 'Unknown error');
+        const result = await response.json();
+
+        if (!response.ok) {
+            // Backend sends meaningful error messages, use them instead of generic errors
+            throw new Error(result.error || `Server Error (${response.status}): Try again later.`);
+        }
+
+        return result;
+    } catch (error) {
+        console.error("API request failed:", error);
+        throw new Error(error.message || "Could not fetch PeaceRank. Please check your internet connection and try again.");
     }
-
-    return result;
 }
+
 
 /**
  * Displays the PeaceRank result in the output container.
